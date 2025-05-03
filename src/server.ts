@@ -1,8 +1,7 @@
 import createApp from './app';
-import {getUser} from './controllers/users-controller';
 
 const app = createApp();
-const port = process.env.PORT;
+const port = 3333;
 
 app.listen(port, () => {
     console.log(`Tudo certo!😎\nA aplicação MediControl  está rodando na porta http://localhost:${port}⚡`);

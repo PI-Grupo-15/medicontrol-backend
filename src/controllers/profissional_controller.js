@@ -1,17 +1,16 @@
-import { Request, Response } from 'express';
 
 // TODO: Deve ser substituido por um banco de dados
 // TODO: Mudar os campos da data para usarem um type Date
-const profissionais = new Map<string, any>(); // Armazena os profissionais em memória, com o email como chave
+const profissionais = new Map([]); // Armazena os profissionais em memória, com o email como chave
 
 // TODO: Adicionar criptografia para senhas
-export const cadastrarProfissional = (req: Request, res: Response) => {
+export const cadastrarProfissional = (req, res) => {
 
     const { nome, nascimento, telefone, email, profissao, numero_registro, senha } = req.body;
 
     // // Validação básica dos campos
     if (!nome || !nascimento || !telefone || !email || !profissao || !numero_registro || !senha) {
-       res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+       res.status(400).json({ error: 'Todos os campos são obrigatórios.' });       
        return;
     }
 
@@ -36,9 +35,10 @@ export const cadastrarProfissional = (req: Request, res: Response) => {
     profissionais.set(email, novoProfissional);
 
     res.status(201).json({ message: 'Profissional cadastrado com sucesso!', profissional: novoProfissional });
+    console.log(senha);
 };
 
-export const loginProfissional = (req: Request, res: Response) => {
+export const loginProfissional = (req, res) => {
     const { email, senha } = req.body;
 
     // Validação básica dos campos

@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { cadastrarProfissional, loginProfissional } from '../controllers/profissional_controller';
+import { cadastrarProfissional, loginProfissional } from '../controllers/profissional_controller.js';
 import { 
     cadastrarPaciente, 
     listarPacientesPorProfissional, 
     cadastrarAtividade, 
     listarAtividadesNaoConcluidas,
     marcarAtividadeComoConcluida
-} from '../controllers/paciente_controller';
+} from '../controllers/paciente_controller.js';
 
 const router = Router();
 

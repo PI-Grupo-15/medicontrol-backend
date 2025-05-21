@@ -2,27 +2,22 @@
   "name": "medicontrol",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.cjs",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "dist": "tsup src",
-    "start:dev": "tsx --env-file=.env src/server.ts",
-    "start:watch": "tsx watch --env-file=.env src/server.ts",
-    "start:dist": "npm run dist && node dist/src/index.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.15.3",
-    "nodemon": "^3.1.10",
-    "ts-node": "^10.9.2",
-    "tsup": "^8.3.5",
-    "tsx": "^4.19.2",
-    "typescript": "^5.8.3"
+    "nodemon": "^3.1.10"
   },
   "dependencies": {
-    "express": "^4.21.1"
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.1",
+    "pg": "^8.16.0"
   }
 }

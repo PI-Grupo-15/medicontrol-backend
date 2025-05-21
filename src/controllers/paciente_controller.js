@@ -1,12 +1,11 @@
-import { Request, Response } from 'express';
 
 // TODO: Deve ser substituido por um banco de dados
 // TODO: Mudar os campos da data para usarem um type Date
-const pacientes = new Map<number, any[]>(); // Armazena os pacientes em memória, agrupados pelo profissional_id
-const atividades = new Map<number, any[]>(); // Armazena as atividades em memória, agrupadas pelo paciente_id
+const pacientes = new Map([]); // Armazena os pacientes em memória, agrupados pelo profissional_id
+const atividades = new Map([]); // Armazena as atividades em memória, agrupadas pelo paciente_id
 let atividadeIdCounter = 1; // Variável global para gerar IDs únicos para atividades
 
-export const cadastrarPaciente = (req: Request, res: Response) => {
+export const cadastrarPaciente = (req, res) => {
     const {
         profissional_id,
         nome,
@@ -65,7 +64,7 @@ export const cadastrarPaciente = (req: Request, res: Response) => {
     res.status(201).json({ message: 'Paciente cadastrado com sucesso!', paciente: novoPaciente });
 };
 
-export const listarPacientesPorProfissional = (req: Request, res: Response) => {
+export const listarPacientesPorProfissional = (req, res) => {
     const { profissional_id } = req.params;
 
     // Validação do profissional_id
@@ -94,7 +93,7 @@ export const listarPacientesPorProfissional = (req: Request, res: Response) => {
 
 // Endpoints relacionados a atividades
 // TODO: Mover para um controller especifico de atividades quando estiver com backend
-export const cadastrarAtividade = (req: Request, res: Response) => {
+export const cadastrarAtividade = (req, res) => {
     const { paciente_id, nome, data, horario, concluido } = req.body;
 
     // Validação básica dos campos
@@ -132,7 +131,7 @@ export const cadastrarAtividade = (req: Request, res: Response) => {
     res.status(201).json({ message: 'Atividade cadastrada com sucesso!', atividade: novaAtividade });
 };
 
-export const listarAtividadesNaoConcluidas = (req: Request, res: Response) => {
+export const listarAtividadesNaoConcluidas = (req, res) => {
     const { profissional_id } = req.params;
 
     // Validação do profissional_id
@@ -177,7 +176,7 @@ export const listarAtividadesNaoConcluidas = (req: Request, res: Response) => {
     res.status(200).json({ atividades: atividadesNaoConcluidas });
 };
 
-export const marcarAtividadeComoConcluida = (req: Request, res: Response) => {
+export const marcarAtividadeComoConcluida = (req, res) => {
     const { profissional_id, atividade_id } = req.body;
 
     // Validação dos campos obrigatórios

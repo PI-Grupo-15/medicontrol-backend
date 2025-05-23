@@ -13,7 +13,7 @@ const router = Router();
 // Cadastrar profissional
 router.post("/profissional", cadastrarProfissional);
 
-// Login profissional
+//Login profissional
 router.post("/login", loginProfissional);
 
 // Cadastrar paciente

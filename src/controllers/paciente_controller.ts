@@ -5,6 +5,7 @@ import { Request, Response } from 'express';
 const pacientes = new Map<number, any[]>(); // Armazena os pacientes em memória, agrupados pelo profissional_id
 const atividades = new Map<number, any[]>(); // Armazena as atividades em memória, agrupadas pelo paciente_id
 let atividadeIdCounter = 1; // Variável global para gerar IDs únicos para atividades
+let pacienteIdCounter = 1; // Variável global para gerar IDs únicos para pacientes
 
 export const cadastrarPaciente = (req: Request, res: Response) => {
     const {
@@ -44,7 +45,7 @@ export const cadastrarPaciente = (req: Request, res: Response) => {
 
     // Criação do objeto paciente
     const novoPaciente = {
-        id: (pacientes.get(profissional_id)?.length ?? 0) + 1, // Gera um ID simples
+        id: pacienteIdCounter++, // Gera um ID simples
         nome,
         data_nascimento,
         contato_emergencia,

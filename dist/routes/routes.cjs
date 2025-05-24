@@ -75,8 +75,9 @@ var loginProfissional = (req, res) => {
 var pacientes = /* @__PURE__ */ new Map();
 var atividades = /* @__PURE__ */ new Map();
 var atividadeIdCounter = 1;
+var pacienteIdCounter = 1;
 var cadastrarPaciente = (req, res) => {
-  var _a, _b, _c;
+  var _a;
   const {
     profissional_id,
     nome,
@@ -99,7 +100,7 @@ var cadastrarPaciente = (req, res) => {
     return;
   }
   const novoPaciente = {
-    id: ((_b = (_a = pacientes.get(profissional_id)) == null ? void 0 : _a.length) != null ? _b : 0) + 1,
+    id: pacienteIdCounter++,
     // Gera um ID simples
     nome,
     data_nascimento,
@@ -114,7 +115,7 @@ var cadastrarPaciente = (req, res) => {
   if (!pacientes.has(profissional_id)) {
     pacientes.set(profissional_id, []);
   }
-  (_c = pacientes.get(profissional_id)) == null ? void 0 : _c.push(novoPaciente);
+  (_a = pacientes.get(profissional_id)) == null ? void 0 : _a.push(novoPaciente);
   res.status(201).json({ message: "Paciente cadastrado com sucesso!", paciente: novoPaciente });
 };
 var listarPacientesPorProfissional = (req, res) => {

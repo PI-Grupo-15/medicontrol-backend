@@ -165,6 +165,7 @@ export const listarAtividadesNaoConcluidas = (req: Request, res: Response) => {
                 atividade_id: atividade.id,
                 nome_paciente: paciente.nome,
                 nome_atividade: atividade.nome,
+                data: atividade.data,
                 horario: atividade.horario,
             }));
     });

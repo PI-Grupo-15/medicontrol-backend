@@ -34,12 +34,14 @@ __export(app_exports, {
 });
 module.exports = __toCommonJS(app_exports);
 var import_express2 = __toESM(require("express"), 1);
+var import_cors = __toESM(require("cors"), 1);
 
 // src/routes/routes.ts
 var import_express = require("express");
 
 // src/controllers/profissional_controller.ts
 var profissionais = /* @__PURE__ */ new Map();
+var profissionalIdCounter = 1;
 var cadastrarProfissional = (req, res) => {
   const { nome, nascimento, telefone, email, profissao, numero_registro, senha } = req.body;
   if (!nome || !nascimento || !telefone || !email || !profissao || !numero_registro || !senha) {
@@ -51,6 +53,8 @@ var cadastrarProfissional = (req, res) => {
     return;
   }
   const novoProfissional = {
+    profissional_id: profissionalIdCounter++,
+    // Assign and increment the ID
     nome,
     nascimento,
     telefone,
@@ -250,6 +254,7 @@ var routes_default = router;
 // src/app.ts
 function createApp() {
   const app = (0, import_express2.default)();
+  app.use((0, import_cors.default)());
   app.use(import_express2.default.json());
   app.use("/", routes_default);
   return app;

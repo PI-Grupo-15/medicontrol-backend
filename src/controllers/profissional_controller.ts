@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 // TODO: Deve ser substituido por um banco de dados
 // TODO: Mudar os campos da data para usarem um type Date
 const profissionais = new Map<string, any>(); // Armazena os profissionais em memória, com o email como chave
-
+let profissionalIdCounter = 1; // Counter for auto-incrementing IDs
 // TODO: Adicionar criptografia para senhas
 export const cadastrarProfissional = (req: Request, res: Response) => {
 
@@ -23,6 +23,7 @@ export const cadastrarProfissional = (req: Request, res: Response) => {
 
     // Criação do objeto profissional
     const novoProfissional = {
+        profissional_id: profissionalIdCounter++, // Assign and increment the ID
         nome,
         nascimento,
         telefone,

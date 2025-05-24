@@ -27,6 +27,7 @@ var import_express = require("express");
 
 // src/controllers/profissional_controller.ts
 var profissionais = /* @__PURE__ */ new Map();
+var profissionalIdCounter = 1;
 var cadastrarProfissional = (req, res) => {
   const { nome, nascimento, telefone, email, profissao, numero_registro, senha } = req.body;
   if (!nome || !nascimento || !telefone || !email || !profissao || !numero_registro || !senha) {
@@ -38,6 +39,8 @@ var cadastrarProfissional = (req, res) => {
     return;
   }
   const novoProfissional = {
+    profissional_id: profissionalIdCounter++,
+    // Assign and increment the ID
     nome,
     nascimento,
     telefone,

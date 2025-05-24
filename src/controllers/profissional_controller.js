@@ -1,4 +1,6 @@
+import "dotenv/config";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { profissionalModel } from "../models/profissional.model.js";
 
 // TODO: Deve ser substituido por um banco de dados
@@ -6,9 +8,12 @@ import { profissionalModel } from "../models/profissional.model.js";
 //const profissionais = new Map([]); // Armazena os profissionais em memória, com o email como chave
 
 // TODO: Adicionar criptografia para senhas
+
+
+
 export const cadastrarProfissional = async (req, res) => {
 
-    try {
+    try {       
                
         const { nome, nascimento, telefone, email, profissao, numero_registro, senha } = req.body;
 
@@ -24,8 +29,7 @@ export const cadastrarProfissional = async (req, res) => {
             res.status(409).json({ ok: false, msg: 'Email já existe.'});
             return;
         }
-
-
+        
         const salt = await bcryptjs.genSalt(10);
         const hashePassword = await bcryptjs.hash(senha, salt)
 
@@ -40,7 +44,13 @@ export const cadastrarProfissional = async (req, res) => {
             senha: hashePassword // TODO: Criptografar senha
         });
 
-        return res.status(201).json({ok: true, msg: 'Profissional cadastrado com sucesso!'})
+        const token = jwt.sign({ email: novoProfissional.email},
+             process.env.JWT_SECRET,
+             {
+                expiresIn: "1h"
+            });
+
+        return res.status(201).json({ok: true, msg: token});
 
     } catch (error) {
         console.log(error);
@@ -64,9 +74,9 @@ export const loginProfissional = async (req, res) => {
         }
 
         
-        const profissional = await profissionalModel.findOneByEmail(email);
+        const emailProfissional = await profissionalModel.findOneByEmail(email);
         // Busca o profissional pelo email
-        if (!profissional) {
+        if (!emailProfissional) {
             res.status(404).json({ error: 'Profissional não encontrado.' });
             return;
         }
@@ -78,7 +88,13 @@ export const loginProfissional = async (req, res) => {
             return;
         }
 
-        res.status(200).json({ message: 'Login realizado com sucesso!'});
+        const token = jwt.sign({ email: senhaProfissional.email},
+             process.env.JWT_SECRET,
+             {
+                expiresIn: "1h"
+            });
+
+        res.status(200).json({ ok: true,  message: token});
         
     } catch (error) {
         console.log(error);
